@@ -95,3 +95,5 @@ autonomous-risk-governance/
 
 Whenever open vscode run : 
 C:\autonomous-risk-governance>venv\Scripts\activate.bat
+
+Welcome to my project 
