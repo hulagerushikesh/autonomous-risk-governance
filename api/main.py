@@ -1,17 +1,21 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
-from dotenv import load_dotenv
-import os
-
-load_dotenv()  # Load variables from .env
-
-db_url = os.getenv("DATABASE_URL")
-api_key = os.getenv("API_KEY")
-debug_mode = os.getenv("DEBUG")
-
+from agents.bias_audit import BiasAuditingAgent
+from agents.compliance import ComplianceAgent
+from agents.decision_support import DecisionSupportAgent
+from agents.explainability import ExplainabilityAgent
+from orchestration.orchestrator import AgentOrchestrator
 
 app = FastAPI()
+orchestrator = AgentOrchestrator([
+    ComplianceAgent("Compliance"),
+    BiasAuditingAgent("BiasAudit"),
+    DecisionSupportAgent("DecisionSupport"),
+    ExplainabilityAgent("Explainability")
+])
 
-@app.get("/")
-def read_root():
-    return {"message": "Autonomous Risk Governance API is running!"}
+@app.post("/evaluate")
+async def evaluate(request: Request):
+    input_data = await request.json()
+    results = orchestrator.run(input_data)
+    return results
