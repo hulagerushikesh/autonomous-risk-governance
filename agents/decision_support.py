@@ -1,10 +1,10 @@
 from agents.base import BaseAgent
 
-
 class DecisionSupportAgent(BaseAgent):
     def evaluate(self, input_data: dict) -> dict:
         recommendations = ["Approve", "Review", "Reject"]
-        decision = recommendations[input_data.get("risk_level", 1)]
+        risk_level = input_data.get("risk_level", 1)
+        decision = recommendations[min(risk_level, len(recommendations) - 1)]
         return {"decision": decision}
 
     def report(self) -> dict:
