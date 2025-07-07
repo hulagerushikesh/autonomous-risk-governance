@@ -37,5 +37,6 @@ def test_explainability_agent(sample_input):
     agent = ExplainabilityAgent("ExplainabilityAgent")
     result = agent.evaluate(sample_input)
     assert "explanation" in result
-    assert "features" in result["explanation"]
+    for feature in sample_input["features"]:
+        assert feature in result["explanation"]
     assert agent.report() == {"agent": "ExplainabilityAgent", "status": "Explainability generated"}

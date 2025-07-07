@@ -107,3 +107,15 @@ url : http://127.0.0.1:8000/docs
 Repo Setup :
 Clone it from git --> https://github.com/hulagerushikesh/autonomous-risk-governance.git
 Add all the dependencies --> run requirements.txt --> pip install requirements.txt
+
+__init__.py : 
+import os
+
+# Directories to make Python packages
+directories = ['api', 'agents', 'orchestration', 'tests']
+
+for directory in directories:
+    os.makedirs(directory, exist_ok=True)
+    init_path = os.path.join(directory, '__init__.py')
+    with open(init_path, 'w') as f:
+        f.write('')

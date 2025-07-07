@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
+from fastapi.testclient import TestClient
 
 from agents.bias_audit import BiasAuditingAgent
 from agents.compliance import ComplianceAgent
@@ -17,6 +18,10 @@ class EvaluationRequest(BaseModel):
 
 # Initialize FastAPI app
 app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Autonomous Risk Governance API"}
 
 # Create orchestrator with all agents
 orchestrator = AgentOrchestrator([
