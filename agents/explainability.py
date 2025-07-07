@@ -1,5 +1,6 @@
 from agents.base import BaseAgent
 
+
 class ExplainabilityAgent(BaseAgent):
     def evaluate(self, input_data: dict) -> dict:
         features = input_data.get("features", [])
