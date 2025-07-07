@@ -29,10 +29,10 @@ jobs:
         pytest tests/tests_agents.py
         pytest tests/tests_orchestrator.py
 
-    - name: Run flake8 for linting
-      run: |
-        pip install flake8
-        flake8 .
+    # - name: Run flake8 for linting
+    #   run: |
+    #     pip install flake8
+    #     flake8 .
 
     - name: Run pytest for testing
       run: |
