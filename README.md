@@ -93,7 +93,17 @@ autonomous-risk-governance/
 └── .env                        # Environment variables
 
 
-Whenever open vscode run : 
+Whenever open vscode run : Or in cmd
+python -m venv venv 
 C:\autonomous-risk-governance>venv\Scripts\activate.bat
 
 Welcome to my project 
+
+To run API Server (in cmd) : uvicorn api.main:app --reload
+url : http://127.0.0.1:8000/docs
+
+
+
+Repo Setup :
+Clone it from git --> https://github.com/hulagerushikesh/autonomous-risk-governance.git
+Add all the dependencies --> run requirements.txt --> requirements.txt

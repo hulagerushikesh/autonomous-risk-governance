@@ -10,3 +10,4 @@ matplotlib
 shap
 lime
 python-dotenv
+pytest
