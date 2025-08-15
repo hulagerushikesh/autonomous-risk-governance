@@ -1,0 +1,25 @@
+include README.md
+include requirements.txt
+include REPOSITORY_ANALYSIS.md
+include RESTRUCTURING_SUMMARY.md
+include .flake8
+include pyproject.toml
+include Dockerfile
+include docker-compose.yml
+recursive-include agents *.py
+recursive-include api *.py
+recursive-include orchestration *.py
+recursive-include utils *.py
+recursive-include schemas *.py
+recursive-include database *.py
+recursive-include tests *.py
+recursive-include frontend *.py *.css *.html
+recursive-include .github/workflows *.yml
+global-exclude *.pyc
+global-exclude __pycache__/*
+global-exclude .pytest_cache/*
+global-exclude venv/*
+global-exclude env/*
+global-exclude .venv/*
+global-exclude logs/*
+global-exclude *.log

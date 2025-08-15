@@ -1,0 +1,140 @@
+# 🚀 Autonomous Risk Governance - Multi-Agent System
+
+name = "autonomous-risk-governance"
+version = "1.0.0"
+description = "Production-ready multi-agent system for autonomous risk governance in financial services"
+authors = ["Rushikesh Hulage <rushikeshhulage@example.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/hulagerushikesh/autonomous-risk-governance"
+homepage = "https://github.com/hulagerushikesh/autonomous-risk-governance"
+keywords = ["risk-governance", "ai", "multi-agent", "fastapi", "banking", "compliance"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.setuptools]
+packages = ["agents", "api", "orchestration", "utils", "schemas", "database"]
+
+[tool.setuptools.package-data]
+"*" = ["*.md", "*.txt", "*.yml", "*.yaml"]
+
+# 🎨 Code Formatting (Black)
+[tool.black]
+line-length = 127
+target-version = ['py313']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | env
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# 📋 Import Sorting (isort)
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 127
+known_first_party = ["agents", "api", "orchestration", "utils", "schemas", "database"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+# 🔬 Type Checking (MyPy)
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = [
+    "langchain.*",
+    "uvicorn.*",
+    "streamlit.*",
+    "pytest.*",
+]
+ignore_missing_imports = true
+
+# 🧪 Testing (Pytest)
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=agents",
+    "--cov=api", 
+    "--cov=orchestration",
+    "--cov=utils",
+    "--cov-branch",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml",
+]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+# 📊 Coverage
+[tool.coverage.run]
+source = ["agents", "api", "orchestration", "utils"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/env/*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"

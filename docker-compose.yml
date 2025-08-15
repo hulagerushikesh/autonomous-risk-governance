@@ -1,0 +1,67 @@
+# 🐳 Docker Compose for Development and Testing
+
+version: '3.8'
+
+services:
+  # 🚀 Main Application
+  risk-governance-api:
+    build: .
+    container_name: autonomous-risk-governance
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - risk-governance-network
+
+  # 📊 Monitoring (Optional - Prometheus)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - risk-governance-network
+    profiles:
+      - monitoring
+
+  # 📈 Visualization (Optional - Grafana)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - risk-governance-network
+    profiles:
+      - monitoring
+
+networks:
+  risk-governance-network:
+    driver: bridge
+
+volumes:
+  grafana-storage:
